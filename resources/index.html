@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hello Spring Boot - Frontend</title>
+<style>
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 40px; }
+.card { max-width: 640px; padding: 24px; border-radius: 16px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+button { padding: 10px 16px; border-radius: 10px; border: 1px solid #ddd; cursor: pointer; margin-right: 8px; }
+code, pre { background: #f6f8fa; padding: 12px; display: block; border-radius: 8px; overflow: auto; }
+.muted { color: #666; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Day 1: Hello Spring Boot</h1>
+  <p class="muted">Click a button to call the backend API <code>/api/helloworld</code> and show the response.</p>
+
+  <button id="btnGet">Call GET API</button>
+  <button id="btnPost">Call POST API</button>
+  <button id="btnDemo">Demo GET (old button)</button>
+
+  <pre id="out">{"message": "(result will appear here)"}</pre>
+
+  <h3>How it works</h3>
+  <ol>
+    <li>This page is served by Spring Boot from <code>src/main/resources/static/index.html</code>.</li>
+    <li>It makes fetch calls to <code>/api/helloworld</code> on the same domain.</li>
+    <li>No CORS needed because frontend and backend share the same origin.</li>
+  </ol>
+</div>
+
+<script>
+const out = document.getElementById('out');
+
+// GET API
+document.getElementById('btnGet').addEventListener('click', async () => {
+  out.textContent = "Loading GET...";
+  try {
+    const res = await fetch('/api/helloworld');
+    const data = await res.json();
+    out.textContent = JSON.stringify(data, null, 2);
+  } catch (err) {
+    out.textContent = "Error: " + err.message;
+  }
+});
+
+// POST API
+document.getEleme
